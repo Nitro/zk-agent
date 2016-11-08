@@ -29,9 +29,23 @@ func clusterInSync(zkAddrs []string, zkLeader string) bool { //bool for whether 
 		mntrCmd.zk_synced_followers == len(zkAddrs)-1 && cluster[zkLeader].mntrCmd.zk_pending_syncs == 0 {
 		return true
 	} else {
-		log.Warnln("Check the ZK leader", zkLeader)
+		log.Warnln("Check the ZK leader.  Not enough synced followers", zkLeader)
 		return false
 	}
+}
+
+func numLeadersFollowers(zkAddrs []string) (int, int) {
+	numLeaders := 0
+	numFollowers := 0
+	for _, node := range zkAddrs {
+		if cluster[node].leader {
+			numLeaders += 1
+		}
+		if cluster[node].follower {
+			numFollowers += 1
+		}
+	}
+	return numLeaders, numFollowers
 }
 
 func findLeader(zkAddrs []string) (bool, string) { //return bool for healty state and the name of the leader
@@ -66,7 +80,9 @@ func main() {
 		}
 		nodesOk := checkNodes(config.ZkAddresses)
 		clusterOk := clusterInSync(config.ZkAddresses, zkLeader)
-		if nodesOk && clusterOk && leaderOk {
+		numLeaders, numFollowers := numLeadersFollowers(config.ZkAddresses)
+		log.Infoln("Number of Leaders:", numLeaders, "Number of Followers:", numFollowers, "Size of Cluster:", len(config.ZkAddresses))
+		if nodesOk && clusterOk && leaderOk && numLeaders == 1 && (numLeaders+numFollowers == len(config.ZkAddresses)) {
 			log.Infoln("The ZK Cluster is in healthy state")
 		} else {
 			log.Warnln("The ZK Cluster is not healthy")

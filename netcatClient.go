@@ -10,7 +10,9 @@ import (
 func ncClient(proto string, addr string, cmd string) {
 	conn, err := net.Dial(proto, addr)
 	if err != nil {
-		log.Fatalln(err)
+		log.Errorln(err)
+		readOutputs(nil, addr, cmd)
+		return
 	}
 	local := conn.LocalAddr()
 	remote := conn.RemoteAddr()

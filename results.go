@@ -43,6 +43,7 @@ type srvr struct {
 type zkNode struct {
 	zkAddr    string
 	leader    bool
+	follower  bool
 	zkVersion string
 	ruok      bool
 	srvrCmd   *srvr
@@ -60,6 +61,12 @@ func readOutputs(conn net.Conn, addr string, cmd string) {
 	var val64 int64
 	var valint int
 	var err error
+
+	if conn == nil {
+		cluster[addr].ruok = false
+		return
+	}
+
 	message := bufio.NewScanner(conn)
 	for message.Scan() {
 		if cmd == "mntr" {
@@ -165,8 +172,9 @@ func readOutputs(conn net.Conn, addr string, cmd string) {
 			}
 			if cluster[addr].mntrCmd.zk_server_state == "leader" {
 				cluster[addr].leader = true
-			} else {
-				cluster[addr].leader = false
+			}
+			if cluster[addr].mntrCmd.zk_server_state == "follower" {
+				cluster[addr].follower = true
 			}
 		}
 	}
