@@ -127,38 +127,6 @@ func readOutputs(conn net.Conn, addr string, cmd string) {
 				cluster[addr].mntrCmd.zk_pending_syncs = valint
 			}
 
-			// } else if cmd == "srvr" {
-			// 	output := strings.Split(message.Text(), ":")
-			// 	log.Debugln(output)
-			// 	if output[0] == "Zookeeper version" {
-			// 		continue
-			// 	}
-			// 	if output[0] != "Latency min/avg/max" && output[0] != "Mode" && output[0] != "Zxid" {
-			// 		val, err = strconv.ParseInt(output[1], 10, 64)
-			// 		if err != nil {
-			// 			log.Fatalln("Could not parse output value", err)
-			// 		}
-			// 	}
-			//
-			// 	switch {
-			// 	case output[0] == "Latency min/avg/max":
-			// 		cluster[addr].srvrCmd.latency = output[1]
-			// 	case output[0] == "Received":
-			// 		cluster[addr].srvrCmd.received = val
-			// 	case output[0] == "Sent":
-			// 		cluster[addr].srvrCmd.sent = val
-			// 	case output[0] == "Connections":
-			// 		cluster[addr].srvrCmd.connections = val
-			// 	case output[0] == "Outstanding":
-			// 		cluster[addr].srvrCmd.outstanding = val
-			// 	case output[0] == "Zxid":
-			// 		cluster[addr].srvrCmd.zxid = output[1]
-			// 	case output[0] == "Mode":
-			// 		cluster[addr].srvrCmd.mode = output[1]
-			// 	case output[0] == "Node Count":
-			// 		cluster[addr].srvrCmd.nodeCount = val
-			// 	}
-			// }
 			if cmd == "ruok" {
 				if output[0] == "imok" {
 					cluster[addr].ruok = true
