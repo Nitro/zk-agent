@@ -32,10 +32,9 @@ func clusterInSync(zkAddrs []string, zkLeader string) bool { //bool for whether 
 	if cluster[zkLeader].mntrCmd.zk_followers == len(zkAddrs)-1 && cluster[zkLeader].
 		mntrCmd.zk_synced_followers == len(zkAddrs)-1 && cluster[zkLeader].mntrCmd.zk_pending_syncs == 0 {
 		return true
-	} else {
-		log.Warnln("Check the ZK leader.  Not enough synced followers", zkLeader)
-		return false
 	}
+	log.Warnln("Check the ZK leader.  Not enough synced followers", zkLeader)
+	return false
 }
 
 func numLeadersFollowers(zkAddrs []string) (int, int) {
