@@ -1,0 +1,13 @@
+{
+  "client": {
+    "name": "BP",
+    "address": "192.168.1.1"
+  },
+  "checks": [
+    {
+      "name": "zookeeper_check",
+      "standalone": true,
+      "interval": 15
+    }
+  ]
+}

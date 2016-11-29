@@ -6,23 +6,26 @@ import (
 )
 
 type GoavailOpts struct {
-	Command    *string
-	ConfigFile *string
-	DryRun     *bool
-	Debug      *bool
+	Command         *string
+	ZkConfigFile    *string
+	SensuConfigFile *string
+	DryRun          *bool
+	Debug           *bool
 }
 
 func parseCommandLine() *GoavailOpts {
 	var opts GoavailOpts
 
 	kingpin.CommandLine.Help = "A Zookeeper Health Checks tool."
-	opts.ConfigFile = kingpin.Flag("config-file", "The configuration TOML file path").Short('f').Default("cluster.toml").String()
+	opts.ZkConfigFile = kingpin.Flag("zk-config", "The Zookeeper configuration TOML file path").Short('z').Default("cluster.toml").String()
+	opts.SensuConfigFile = kingpin.Flag("sensu-config", "The Sensu configuration file").Short('c').Default("sensu-config.json").String()
 	kingpin.Command("run-checks", "Check the health of the cluster listed in cluster.toml")
+	kingpin.Command("run-sensu", "Monitor the cluster by running the Sensu Client")
 
 	command := kingpin.Parse()
 	opts.Command = &command
 
-	log.Debugln("Using", *opts.ConfigFile, "for configs")
+	log.Debugln("Using", *opts.ZkConfigFile, "for configs")
 
 	return &opts
 }
