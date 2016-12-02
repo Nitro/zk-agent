@@ -10,6 +10,13 @@ Zookeeper famously uses the "four letter words" along with netcat utility for tr
 This, however, becomes a bit cumbersome when trying to determine the overall state of a cluster.  This tool
 takes as input a toml file listing the cluster members, performs some basic checks, and outputs the status.
 
+Usage
+-------------
+Zk-agent can be run as a one time tool using the "run-checks" command or as a continuous sensu standalone check using the "run-sensu" command.
+
+* zk-config flag is the toml configuration file listing the zookeeper cluster members.  The default is cluster.toml
+* sensu-config is the sensu client configuration file to be uses when the tool is run as a client sensu check.  The default is sensu-config.json.
+
 Example Usage
 -------------
 ```
