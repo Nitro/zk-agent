@@ -14,8 +14,8 @@ Usage
 -------------
 Zk-agent can be run as a one time tool using the "run-checks" command or as a continuous sensu standalone check using the "run-sensu" command.  A Dockerfile is added to run the sensu client in a container. 
 
-* zk-config flag is the toml configuration file listing the zookeeper cluster members.  The default is cluster.toml
-* sensu-config flag is the sensu client configuration file to be uses when the tool is run as a client sensu check.  The default is sensu-config.json.
+* zk-config flag is the toml configuration file listing the zookeeper cluster members.  See cluster.toml for an example
+* sensu-config flag is the sensu client configuration file to be uses when the tool is run as a client sensu check.  See sensu-config.json for an example.
 
 Example Usage
 -------------
