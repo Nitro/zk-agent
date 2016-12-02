@@ -1,6 +1,6 @@
 FROM golang:1.6.0
 ENV PATH $GOROOT/bin:$GOPATH/bin:$PATH
-ENV RABBITMQ_URI=amqp://sensuq:e9NWdpNE@10.3.13.49:5673//sensu
+ENV RABBITMQ_URI=amqp://<rabbitmq_user>:<password>@<rabbitmq_host>:<port>//<vhost>
 RUN go get github.com/tools/godep
 RUN go get golang.org/x/sys/unix
 
