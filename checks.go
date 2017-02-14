@@ -114,7 +114,10 @@ func runSensu() {
 
 	log.Printf("URL: %s", sensuConfig.RabbitMQURI())
 
-	transport := rabbitmq.NewRabbitMQTransport(sensuConfig.RabbitMQURI())
+	transport, err := rabbitmq.NewRabbitMQTransport(sensuConfig.RabbitMQURI())
+	if err != nil {
+		log.Fatalf("Error reading Sensu config: %s", err)
+	}
 	sensuClient := sensu.NewClient(transport, sensuConfig)
 
 	check.Store["zookeeper_check"] = &check.ExtensionCheck{SensuCheck}
