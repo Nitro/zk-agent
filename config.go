@@ -5,12 +5,12 @@ import (
 	log "github.com/Sirupsen/logrus"
 )
 
-type GoavailConfig struct {
+type ZKConfig struct {
 	ZkAddresses []string `toml:"zk_addresses"`
 }
 
-func parseConfig(path string) *GoavailConfig {
-	var config GoavailConfig
+func parseConfig(path string) *ZKConfig {
+	var config ZKConfig
 
 	_, err := toml.DecodeFile(path, &config)
 	if err != nil {

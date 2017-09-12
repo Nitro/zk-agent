@@ -5,7 +5,7 @@ import (
 	"gopkg.in/alecthomas/kingpin.v2"
 )
 
-type GoavailOpts struct {
+type AgentOpts struct {
 	Command         *string
 	ZkConfigFile    *string
 	SensuConfigFile *string
@@ -13,8 +13,8 @@ type GoavailOpts struct {
 	Debug           *bool
 }
 
-func parseCommandLine() *GoavailOpts {
-	var opts GoavailOpts
+func parseCommandLine() *AgentOpts {
+	var opts AgentOpts
 
 	kingpin.CommandLine.Help = "A Zookeeper Health Checks tool."
 	opts.ZkConfigFile = kingpin.Flag("zk-config", "The Zookeeper configuration TOML file path").Short('z').Default("cluster.toml").String()

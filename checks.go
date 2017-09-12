@@ -118,6 +118,7 @@ func runSensu() {
 	if err != nil {
 		log.Fatalf("Error reading Sensu config: %s", err)
 	}
+
 	sensuClient := sensu.NewClient(transport, sensuConfig)
 
 	check.Store["zookeeper_check"] = &check.ExtensionCheck{SensuCheck}
